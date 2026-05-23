@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Cap</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Iconify for Icons -->
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primaryDark: '#007867',
+                        primary: '#00A76F',
+                        primaryLight: '#5BE49B',
+                        accent: '#FFAB00',
+                        light: '#F9FAFB',
+                        dark: '#212B36',
+                        graytext: '#637381',
+                        bordercolor: 'rgba(145, 158, 171, 0.24)'
+                    },
+                    fontFamily: {
+                        sans: ['"Public Sans"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 0 2px 0 rgba(145, 158, 171, 0.2), 0 12px 24px -4px rgba(145, 158, 171, 0.12)',
+                        'hover': '0 0 2px 0 rgba(145, 158, 171, 0.2), 0 20px 40px -4px rgba(145, 158, 171, 0.24)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #FFFFFF; }
+        .smooth-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    </style>
+</head>
+<body class="text-dark font-sans antialiased overflow-x-hidden selection:bg-primary selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="w-full bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-bordercolor border-dashed">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 group">
+                <img src="logo.png" alt="Media Cap Logo" class="w-8 h-8 object-contain">
+                <span class="text-xl font-bold tracking-tight text-dark group-hover:text-primary smooth-hover">Media Cap</span>
+            </a>
+            
+            <a href="login.html" class="flex items-center gap-2 bg-dark hover:bg-[#454F5B] text-white px-6 py-2.5 rounded-lg font-bold text-sm smooth-hover shadow-soft hover:shadow-hover">
+                <iconify-icon icon="mynaui:user" class="text-lg"></iconify-icon> Portal Login
+            </a>
+        </div>
+    </nav>
+
+    <!-- Public Alerts Container -->
+    <div id="public-alerts-container" class="max-w-7xl mx-auto px-6 mt-6 space-y-4 empty:mt-0"></div>
+
+    <!-- Hero Section -->
+    <main class="max-w-7xl mx-auto px-6 pt-32 pb-32 relative">
+        <!-- Background decorative blob -->
+        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-[#00A76F]/10 to-[#5BE49B]/10 rounded-full blur-[100px] -z-10 -translate-y-1/2 translate-x-1/3"></div>
+
+        <div class="flex flex-col md:flex-row items-center gap-16">
+            
+            <div class="w-full md:w-1/2 flex flex-col items-start space-y-8">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-[#E1F3EA] text-primary rounded-lg font-bold text-xs uppercase tracking-wider">
+                    <iconify-icon icon="mynaui:sparkles" class="text-base"></iconify-icon> Version 2.0
+                </div>
+                
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-dark tracking-tight">
+                    Master <br/>Digital Skills. <br/>
+                    <span class="text-primary">Effortlessly.</span>
+                </h1>
+                
+                <p class="text-lg text-graytext font-medium leading-relaxed max-w-lg">
+                    Media Cap is a specialized platform dedicated to teaching students essential tech-based skills, including poster design, video editing, and coding.
+                </p>
+                
+                <div class="flex flex-wrap items-center gap-4 pt-4">
+                    <a href="login.html" class="flex items-center gap-2 bg-primary hover:bg-primaryDark text-white px-8 py-3.5 rounded-lg font-bold smooth-hover shadow-soft hover:shadow-hover">
+                        Get Started <iconify-icon icon="mynaui:arrow-right" class="text-xl"></iconify-icon>
+                    </a>
+                    <a href="#features" class="flex items-center gap-2 bg-transparent text-dark hover:bg-light px-8 py-3.5 rounded-lg font-bold border border-bordercolor dashed smooth-hover">
+                        Explore Features
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hero Illustration Placeholder -->
+            <div class="w-full md:w-1/2 relative">
+                <div class="w-full aspect-square bg-light rounded-[3rem] border border-bordercolor border-dashed flex items-center justify-center p-12 relative shadow-soft overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-[#00A76F] to-[#5BE49B] opacity-5 group-hover:opacity-10 smooth-hover transition-opacity"></div>
+                    <div class="w-full h-full bg-white rounded-3xl shadow-soft p-6 flex flex-col gap-4 relative z-10 transform group-hover:-translate-y-2 smooth-hover transition-transform duration-500">
+                        <div class="w-12 h-12 bg-[#E1F3EA] rounded-xl flex items-center justify-center text-primary">
+                            <iconify-icon icon="mynaui:grid" class="text-2xl"></iconify-icon>
+                        </div>
+                        <div class="w-3/4 h-4 bg-light rounded-full"></div>
+                        <div class="w-1/2 h-4 bg-light rounded-full"></div>
+                        
+                        <div class="mt-auto flex justify-between items-end gap-4">
+                            <div class="flex-1 h-32 bg-light rounded-xl border border-bordercolor border-dashed"></div>
+                            <div class="flex-1 h-48 bg-gradient-to-t from-primary to-primaryLight rounded-xl shadow-soft"></div>
+                            <div class="flex-1 h-24 bg-[#FFF5CC] rounded-xl"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Features Section -->
+    <section id="features" class="bg-light py-24 border-y border-bordercolor border-dashed relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Everything You Need</h2>
+                <p class="text-graytext font-medium max-w-2xl mx-auto">Manage your workflow efficiently with our minimal and robust platform.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-soft hover:shadow-hover smooth-hover hover:-translate-y-1 cursor-pointer group border border-transparent hover:border-primary/20">
+                    <div class="w-14 h-14 bg-light rounded-xl flex items-center justify-center mb-6 text-dark group-hover:bg-[#E1F3EA] group-hover:text-primary smooth-hover transition-colors">
+                        <iconify-icon icon="mynaui:calendar" class="text-3xl"></iconify-icon>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-3 group-hover:text-primary smooth-hover transition-colors">Live Attendance</h3>
+                    <p class="text-graytext text-sm leading-relaxed">Track presence instantly with our automated registration system.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-soft hover:shadow-hover smooth-hover hover:-translate-y-1 cursor-pointer group border border-transparent hover:border-primary/20">
+                    <div class="w-14 h-14 bg-light rounded-xl flex items-center justify-center mb-6 text-dark group-hover:bg-[#E1F3EA] group-hover:text-primary smooth-hover transition-colors">
+                        <iconify-icon icon="mynaui:bell" class="text-3xl"></iconify-icon>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-3 group-hover:text-primary smooth-hover transition-colors">Notifications</h3>
+                    <p class="text-graytext text-sm leading-relaxed">Stay updated with instant broadcasts from administrators.</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-soft hover:shadow-hover smooth-hover hover:-translate-y-1 cursor-pointer group border border-transparent hover:border-primary/20">
+                    <div class="w-14 h-14 bg-light rounded-xl flex items-center justify-center mb-6 text-dark group-hover:bg-[#E1F3EA] group-hover:text-primary smooth-hover transition-colors">
+                        <iconify-icon icon="mynaui:file" class="text-3xl"></iconify-icon>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-3 group-hover:text-primary smooth-hover transition-colors">Task Manager</h3>
+                    <p class="text-graytext text-sm leading-relaxed">Receive, manage, and complete assignments seamlessly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-bordercolor border-dashed py-12">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <img src="logo.png" alt="Logo" class="w-8 h-8 object-contain">
+                <span class="text-xl font-bold tracking-tight text-dark">Media Cap</span>
+            </div>
+            
+            <p class="text-sm text-graytext">© 2026 Media Cap. All rights reserved.</p>
+            
+            <div class="flex items-center gap-2">
+                <a href="#" class="w-10 h-10 bg-light hover:bg-[#E1F3EA] text-graytext hover:text-primary rounded-full flex items-center justify-center smooth-hover transition-colors">
+                    <iconify-icon icon="mynaui:brand-instagram" class="text-xl"></iconify-icon>
+                </a>
+                <a href="#" class="w-10 h-10 bg-light hover:bg-[#E1F3EA] text-graytext hover:text-primary rounded-full flex items-center justify-center smooth-hover transition-colors">
+                    <iconify-icon icon="mynaui:brand-facebook" class="text-xl"></iconify-icon>
+                </a>
+            </div>
+        </div>
+    </footer>
+    </footer>
+
+    <script type="module">
+        import { db } from './js/firebase-config.js';
+        import { collection, query, where, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        async function loadPublicAlerts() {
+            const container = document.getElementById('public-alerts-container');
+            try {
+                const q = query(
+                    collection(db, 'Notifications'), 
+                    where('targetType', '==', 'public'),
+                    orderBy('createdAt', 'desc')
+                );
+                const snap = await getDocs(q);
+                let html = '';
+                snap.forEach(doc => {
+                    const data = doc.data();
+                    const date = data.createdAt ? new Date(data.createdAt.toDate()).toLocaleString() : '';
+                    const isCrit = data.type === 'alert';
+                    const bgClass = isCrit ? 'bg-[#FFE4DE] text-[#FF4842] border-[#FF4842]/30' : 'bg-[#E1F3EA] text-primary border-primary/30';
+                    const icon = isCrit ? 'mynaui:danger' : 'mynaui:info-circle';
+                    
+                    html += `
+                        <div class="w-full ${bgClass} border border-dashed rounded-xl p-4 flex items-start gap-4 shadow-soft">
+                            <iconify-icon icon="${icon}" class="text-2xl mt-0.5"></iconify-icon>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-sm mb-1">${data.title}</h4>
+                                <p class="text-sm font-medium opacity-90">${data.message}</p>
+                            </div>
+                            <span class="text-xs font-bold opacity-70 whitespace-nowrap">${date}</span>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            } catch(err) {
+                console.error("Error loading public alerts:", err);
+            }
+        }
+        loadPublicAlerts();
+    </script>
+</body>
+</html>

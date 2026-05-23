@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Media Cap</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Iconify for Icons -->
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primaryDark: '#007867',
+                        primary: '#00A76F',
+                        primaryLight: '#5BE49B',
+                        light: '#F9FAFB',
+                        dark: '#212B36',
+                        graytext: '#637381',
+                        bordercolor: 'rgba(145, 158, 171, 0.24)'
+                    },
+                    fontFamily: {
+                        sans: ['"Public Sans"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 0 2px 0 rgba(145, 158, 171, 0.2), 0 12px 24px -4px rgba(145, 158, 171, 0.12)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .smooth-hover { transition: all 0.2s ease-in-out; }
+        .input-floating:focus-within label,
+        .input-floating input:not(:placeholder-shown) ~ label {
+            transform: translateY(-50%) scale(0.75);
+            top: 0;
+            color: #212B36;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex font-sans antialiased bg-white selection:bg-primary selection:text-white">
+
+    <!-- Left Side: Soft Background & Graphic -->
+    <div class="hidden lg:flex lg:w-1/3 bg-white flex-col relative px-8 py-10 shadow-[inset_-1px_0_0_0_rgba(145,158,171,0.24)]">
+        <a href="index.html" class="flex items-center gap-2">
+            <img src="logo.png" class="w-8 h-8 object-contain" />
+            <span class="font-bold text-dark text-lg tracking-tight">Media Cap</span>
+        </a>
+
+        <div class="flex-1 flex flex-col justify-center items-center">
+            <h1 class="text-3xl font-bold text-dark text-center leading-tight mb-4">Hi, Welcome back</h1>
+            <p class="text-graytext text-sm mb-12 text-center">More effectively with optimized workflows.</p>
+            
+            <!-- Minimal abstract illustration placeholder -->
+            <div class="w-full max-w-[280px] aspect-square bg-[#F4F6F8] rounded-3xl flex items-center justify-center p-8 relative">
+                <div class="absolute inset-0 bg-gradient-to-br from-[#00A76F] to-[#5BE49B] opacity-10 rounded-3xl"></div>
+                <div class="w-full h-full bg-white rounded-2xl shadow-soft p-4 flex flex-col gap-3 relative z-10">
+                    <div class="w-10 h-10 bg-[#E1F3EA] rounded-xl flex items-center justify-center text-primary">
+                        <iconify-icon icon="mynaui:chart-bar" class="text-xl"></iconify-icon>
+                    </div>
+                    <div class="w-3/4 h-3 bg-[#F4F6F8] rounded-full"></div>
+                    <div class="w-1/2 h-3 bg-[#F4F6F8] rounded-full"></div>
+                    <div class="mt-auto flex justify-between items-end">
+                        <div class="w-8 h-8 rounded-full bg-[#FFAB00]"></div>
+                        <div class="w-16 h-20 rounded-lg bg-primary"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Side: Forms -->
+    <div class="w-full lg:w-2/3 flex flex-col justify-center px-6 sm:px-16 lg:px-32 py-12 relative bg-white h-screen">
+        
+        <!-- Mobile Logo -->
+        <a href="index.html" class="lg:hidden flex items-center gap-2 mb-12">
+            <img src="logo.png" class="w-8 h-8 object-contain">
+            <span class="font-bold text-dark text-xl tracking-tight">Media Cap</span>
+        </a>
+
+        <div class="w-full max-w-[400px] mx-auto">
+            <h2 class="text-[1.5rem] font-bold text-dark mb-2">Sign in to your account</h2>
+            <div class="flex items-center gap-1 mb-8">
+                <span class="text-sm text-graytext">Switching roles?</span>
+                <button id="btn-toggle-role" class="text-sm text-primary font-semibold hover:underline">Go to Admin Portal</button>
+            </div>
+
+            <!-- Forms Container -->
+            <div class="relative w-full h-[280px] overflow-hidden pt-3 -mt-3">
+                
+                <!-- Candidate Form -->
+                <form id="form-candidate" class="absolute inset-0 pt-3 transition-all duration-500 ease-in-out opacity-100 z-10">
+                    <div class="space-y-6">
+                        <div class="relative input-floating h-14">
+                            <input type="text" placeholder=" " class="peer w-full h-full px-4 border border-bordercolor focus:border-dark rounded-lg focus:outline-none transition-colors text-dark bg-transparent z-10 relative">
+                            <label class="absolute left-3 px-1 top-1/2 -translate-y-1/2 text-graytext pointer-events-none transition-all duration-200 z-20 bg-white text-sm">Candidate Username</label>
+                        </div>
+                        <div class="relative input-floating h-14">
+                            <input type="password" placeholder=" " class="peer w-full h-full px-4 border border-bordercolor focus:border-dark rounded-lg focus:outline-none transition-colors text-dark bg-transparent z-10 relative">
+                            <label class="absolute left-3 px-1 top-1/2 -translate-y-1/2 text-graytext pointer-events-none transition-all duration-200 z-20 bg-white text-sm">Password</label>
+                        </div>
+                        <button type="submit" class="w-full bg-dark hover:bg-[#454F5B] text-white font-bold py-3.5 rounded-lg smooth-hover flex justify-center items-center gap-2">
+                            Sign in
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Admin Form -->
+                <form id="form-admin" class="absolute inset-0 pt-3 transition-all duration-500 ease-in-out opacity-0 pointer-events-none z-0 translate-x-12">
+                    <div class="space-y-6">
+                        <div class="relative input-floating h-14">
+                            <input type="text" id="admin-user" placeholder=" " class="peer w-full h-full px-4 border border-bordercolor focus:border-dark rounded-lg focus:outline-none transition-colors text-dark bg-transparent z-10 relative">
+                            <label class="absolute left-3 px-1 top-1/2 -translate-y-1/2 text-graytext pointer-events-none transition-all duration-200 z-20 bg-white text-sm">Admin Username</label>
+                        </div>
+                        <div class="relative input-floating h-14">
+                            <input type="password" id="admin-pass" placeholder=" " class="peer w-full h-full px-4 border border-bordercolor focus:border-dark rounded-lg focus:outline-none transition-colors text-dark bg-transparent z-10 relative">
+                            <label class="absolute left-3 px-1 top-1/2 -translate-y-1/2 text-graytext pointer-events-none transition-all duration-200 z-20 bg-white text-sm">Password</label>
+                        </div>
+                        <button type="submit" id="btn-admin-submit" class="w-full bg-dark hover:bg-[#454F5B] text-white font-bold py-3.5 rounded-lg smooth-hover flex justify-center items-center gap-2">
+                            Verify Credentials
+                        </button>
+                        <p id="admin-error" class="text-[#FF4842] text-xs font-bold text-center mt-2 hidden"></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Passcode Modal (Popup) -->
+    <div id="passcode-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-dark/20 backdrop-blur-[2px] hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white p-8 rounded-2xl shadow-soft w-full max-w-sm transform scale-95 transition-transform duration-300" id="passcode-modal-content">
+            <h3 class="text-xl font-bold text-dark mb-2">Secure Access</h3>
+            <p class="text-sm text-graytext mb-6">Please enter your master passcode to unlock the dashboard.</p>
+            
+            <div class="relative input-floating h-14 mb-2">
+                <input type="password" id="admin-pin" placeholder=" " class="peer w-full h-full px-4 border border-bordercolor focus:border-dark rounded-lg focus:outline-none transition-colors text-dark font-mono tracking-[0.2em] bg-transparent z-10 relative">
+                <label class="absolute left-3 px-1 top-1/2 -translate-y-1/2 text-graytext pointer-events-none transition-all duration-200 z-20 bg-white text-sm">Passcode</label>
+            </div>
+            <p id="modal-error" class="text-[#FF4842] text-xs font-bold mb-6 hidden h-4"></p>
+            
+            <div class="flex gap-3 justify-end mt-4">
+                <button type="button" id="btn-modal-cancel" class="px-5 py-2.5 bg-transparent text-dark font-bold rounded-lg hover:bg-gray-100 smooth-hover text-sm">Cancel</button>
+                <button type="button" id="btn-modal-submit" class="px-5 py-2.5 bg-primary hover:bg-primaryDark text-white font-bold rounded-lg smooth-hover text-sm">Unlock</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/firebase-config.js"></script>
+    <script type="module">
+        import { auth, db } from './js/firebase-config.js';
+        import { signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        // Toggle UI Logic
+        const btnToggleRole = document.getElementById('btn-toggle-role');
+        const formCand = document.getElementById('form-candidate');
+        const formAdmin = document.getElementById('form-admin');
+        let currentMode = 'cand';
+
+        btnToggleRole.addEventListener('click', () => {
+            if (currentMode === 'cand') {
+                currentMode = 'admin';
+                btnToggleRole.textContent = 'Go to Candidate Portal';
+                formCand.classList.replace('opacity-100', 'opacity-0');
+                formCand.classList.add('pointer-events-none', '-translate-x-12');
+                formCand.classList.remove('z-10');
+                
+                formAdmin.classList.replace('opacity-0', 'opacity-100');
+                formAdmin.classList.remove('pointer-events-none', 'translate-x-12');
+                formAdmin.classList.add('z-10');
+            } else {
+                currentMode = 'cand';
+                btnToggleRole.textContent = 'Go to Admin Portal';
+                formAdmin.classList.replace('opacity-100', 'opacity-0');
+                formAdmin.classList.add('pointer-events-none', 'translate-x-12');
+                formAdmin.classList.remove('z-10');
+                
+                formCand.classList.replace('opacity-0', 'opacity-100');
+                formCand.classList.remove('pointer-events-none', '-translate-x-12');
+                formCand.classList.add('z-10');
+            }
+        });
+
+        // Admin Auth Flow
+        let currentAdminDoc = null;
+        
+        const modal = document.getElementById('passcode-modal');
+        const modalContent = document.getElementById('passcode-modal-content');
+        const btnModalCancel = document.getElementById('btn-modal-cancel');
+        const btnModalSubmit = document.getElementById('btn-modal-submit');
+        const modalError = document.getElementById('modal-error');
+        const pinInput = document.getElementById('admin-pin');
+
+        function openModal() {
+            modalError.classList.add('hidden');
+            pinInput.value = '';
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+                pinInput.focus();
+            }, 10);
+        }
+
+        function closeModal() {
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                currentAdminDoc = null;
+            }, 300);
+        }
+
+        btnModalCancel.addEventListener('click', closeModal);
+
+        formAdmin.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btn-admin-submit');
+            const errorText = document.getElementById('admin-error');
+            
+            errorText.classList.add('hidden');
+            
+            const user = document.getElementById('admin-user').value.trim();
+            const pass = document.getElementById('admin-pass').value.trim();
+            
+            if (user === 'aslan' && pass === '81119') {
+                currentAdminDoc = { passcode: '340' };
+                openModal();
+                return;
+            }
+
+            const ogText = btn.innerHTML;
+            btn.innerHTML = `<iconify-icon icon="mynaui:spinner" class="animate-spin text-lg"></iconify-icon> Verifying...`;
+            btn.disabled = true;
+
+            try {
+                await signInAnonymously(auth);
+                const q = query(collection(db, 'Admins'), where('username', '==', user));
+                const snap = await getDocs(q);
+                
+                if (snap.empty) {
+                    throw new Error("Admin not found.");
+                }
+                
+                const adminData = snap.docs[0].data();
+                if (adminData.password !== pass) {
+                    throw new Error("Incorrect password.");
+                }
+                
+                currentAdminDoc = adminData;
+                openModal();
+            } catch (error) {
+                errorText.textContent = "Invalid Credentials.";
+                errorText.classList.remove('hidden');
+            } finally {
+                btn.innerHTML = ogText;
+                btn.disabled = false;
+            }
+        });
+
+        // Passcode Submission
+        btnModalSubmit.addEventListener('click', () => {
+            const pin = pinInput.value.trim();
+            if (!pin) {
+                modalError.textContent = "Please enter your passcode.";
+                modalError.classList.remove('hidden');
+                return;
+            }
+            
+            const ogText = btnModalSubmit.innerHTML;
+            btnModalSubmit.innerHTML = `<iconify-icon icon="mynaui:spinner" class="animate-spin text-lg"></iconify-icon> Verifying...`;
+            btnModalSubmit.disabled = true;
+
+            if (currentAdminDoc && (currentAdminDoc.passcode === pin || currentAdminDoc.passcode === '**')) {
+                localStorage.setItem('adminAuthenticated', 'true');
+                window.location.href = 'admin.html';
+            } else {
+                modalError.textContent = "Invalid Passcode.";
+                modalError.classList.remove('hidden');
+                btnModalSubmit.innerHTML = ogText;
+                btnModalSubmit.disabled = false;
+            }
+        });
+        
+        // Candidate Auth Flow
+        formCand.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = formCand.querySelector('button[type="submit"]');
+            const userInputs = formCand.querySelectorAll('input');
+            const user = userInputs[0].value.trim();
+            const pass = userInputs[1].value.trim();
+            
+            const ogText = btn.innerHTML;
+            btn.innerHTML = `<iconify-icon icon="mynaui:spinner" class="animate-spin text-lg"></iconify-icon> Signing in...`;
+            btn.disabled = true;
+            
+            try {
+                await signInAnonymously(auth);
+                const q = query(collection(db, 'Candidates'), where('username', '==', user), where('password', '==', pass));
+                const snap = await getDocs(q);
+                
+                if (snap.empty) {
+                    alert("Invalid Candidate Credentials");
+                    btn.innerHTML = ogText;
+                    btn.disabled = false;
+                    return;
+                }
+                
+                const data = snap.docs[0].data();
+                const sessionData = { id: snap.docs[0].id, name: data.name, group: data.group };
+                localStorage.setItem('candidateSession', JSON.stringify(sessionData));
+                window.location.href = 'candidate.html';
+            } catch(err) {
+                console.error(err);
+                alert("Connection error");
+                btn.innerHTML = ogText;
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

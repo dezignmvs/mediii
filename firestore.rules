@@ -1,0 +1,37 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // For development/testing: Allow all reads and writes
+    // WARNING: Make sure to change this before going to production
+    match /{document=**} {
+      allow read, write: if true;
+    }
+    
+    // ---------------------------------------------------------
+    // FUTURE PRODUCTION RULES (Uncomment these and delete above)
+    // ---------------------------------------------------------
+    
+    // match /Admins/{adminId} {
+    //   allow read: if request.auth != null;
+    //   allow write: if false; // Only manageable from Firebase Console
+    // }
+    
+    // match /Candidates/{candidateId} {
+    //   // Admins can read/write everything. Candidates can read their own.
+    //   allow read: if request.auth != null;
+    //   allow write: if request.auth != null && exists(/databases/$(database)/documents/Admins/$(request.auth.uid));
+    // }
+    
+    // match /Groups/{groupId} {
+    //   allow read: if request.auth != null;
+    //   allow write: if request.auth != null && exists(/databases/$(database)/documents/Admins/$(request.auth.uid));
+    // }
+    
+    // match /Tasks/{taskId} {
+    //   allow read: if request.auth != null;
+    //   allow write: if request.auth != null && exists(/databases/$(database)/documents/Admins/$(request.auth.uid));
+    // }
+    
+  }
+}

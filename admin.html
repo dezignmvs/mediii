@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal - Media Cap</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Iconify for Icons -->
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primaryDark: '#007867',
+                        primary: '#00A76F',
+                        primaryLight: '#5BE49B',
+                        accent: '#FFAB00',
+                        light: '#F9FAFB',
+                        dark: '#212B36',
+                        graytext: '#637381',
+                        bordercolor: 'rgba(145, 158, 171, 0.24)'
+                    },
+                    fontFamily: {
+                        sans: ['"Public Sans"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 0 2px 0 rgba(145, 158, 171, 0.2), 0 12px 24px -4px rgba(145, 158, 171, 0.12)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #F9FAFB; }
+        .smooth-hover { transition: all 0.2s ease-in-out; }
+        
+        .view-section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .view-section.active {
+            display: block;
+            opacity: 1;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background-color: rgba(145, 158, 171, 0.24); border-radius: 10px; }
+
+        .nav-link.active {
+            background-color: rgba(0, 167, 111, 0.08);
+            color: #00A76F;
+            font-weight: 700;
+        }
+        .nav-link.active iconify-icon {
+            color: #00A76F;
+        }
+    </style>
+</head>
+<body class="text-dark font-sans flex h-screen overflow-hidden antialiased selection:bg-primary selection:text-white">
+
+    <!-- Sidebar -->
+    <aside class="w-[280px] bg-white flex-col hidden md:flex z-20 border-r border-bordercolor border-dashed">
+        <div class="h-20 flex items-center gap-3 px-6">
+            <img src="logo.png" alt="Logo" class="w-8 h-8 object-contain">
+            <h1 class="text-xl font-bold tracking-tight text-dark">Media Cap</h1>
+        </div>
+        
+        <!-- User summary -->
+        <div class="px-5 mb-6">
+            <div class="flex items-center gap-4 bg-light p-4 rounded-xl border border-bordercolor border-dashed">
+                <div class="w-10 h-10 rounded-full bg-[#E1F3EA] text-primary flex items-center justify-center font-bold">
+                    A
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm text-dark">Admin User</h4>
+                    <p class="text-xs text-graytext">Superadmin</p>
+                </div>
+            </div>
+        </div>
+
+        <nav class="flex-1 overflow-y-auto px-4">
+            <p class="text-[11px] font-bold text-graytext uppercase mb-2 px-2">Overview</p>
+            <ul class="space-y-1 mb-8">
+                <li>
+                    <a href="#" data-target="dashboard-view" class="nav-link active flex items-center gap-4 px-4 py-3 rounded-lg text-graytext hover:bg-light font-medium smooth-hover text-sm">
+                        <iconify-icon icon="mynaui:grid" class="text-xl"></iconify-icon> Dashboard
+                    </a>
+                </li>
+            </ul>
+
+            <p class="text-[11px] font-bold text-graytext uppercase mb-2 px-2">Management</p>
+            <ul class="space-y-1">
+                <li>
+                    <a href="#" data-target="group-view" class="nav-link flex items-center gap-4 px-4 py-3 rounded-lg text-graytext hover:bg-light font-medium smooth-hover text-sm">
+                        <iconify-icon icon="mynaui:users" class="text-xl"></iconify-icon> Group Manager
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-target="credential-view" class="nav-link flex items-center gap-4 px-4 py-3 rounded-lg text-graytext hover:bg-light font-medium smooth-hover text-sm">
+                        <iconify-icon icon="mynaui:key" class="text-xl"></iconify-icon> Credentials
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-target="attendance-view" class="nav-link flex items-center gap-4 px-4 py-3 rounded-lg text-graytext hover:bg-light font-medium smooth-hover text-sm">
+                        <iconify-icon icon="mynaui:check-circle" class="text-xl"></iconify-icon> Attendance
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-target="notification-view" class="nav-link flex items-center gap-4 px-4 py-3 rounded-lg text-graytext hover:bg-light font-medium smooth-hover text-sm">
+                        <iconify-icon icon="mynaui:bell" class="text-xl"></iconify-icon> Notifications
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-target="task-view" class="nav-link flex items-center gap-4 px-4 py-3 rounded-lg text-graytext hover:bg-light font-medium smooth-hover text-sm">
+                        <iconify-icon icon="mynaui:file" class="text-xl"></iconify-icon> Task Manager
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="p-4 border-t border-bordercolor border-dashed">
+            <button id="logout-btn" class="w-full flex items-center gap-4 px-4 py-3 text-sm font-bold text-[#FF4842] bg-[#FF4842]/10 hover:bg-[#FF4842]/20 rounded-lg smooth-hover">
+                <iconify-icon icon="mynaui:log-out" class="text-xl"></iconify-icon> Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden">
+        
+        <!-- Header -->
+        <header class="h-20 bg-white/80 backdrop-blur-[6px] flex items-center justify-between px-8 z-10">
+            <div class="flex items-center gap-4">
+                <button class="md:hidden text-2xl text-dark">
+                    <iconify-icon icon="mynaui:menu"></iconify-icon>
+                </button>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <button class="w-10 h-10 rounded-full flex items-center justify-center text-graytext hover:bg-light smooth-hover">
+                    <iconify-icon icon="mynaui:bell" class="text-xl"></iconify-icon>
+                </button>
+                <div class="w-10 h-10 rounded-full bg-[#E1F3EA] text-primary flex items-center justify-center font-bold cursor-pointer">
+                    A
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Scroll Area -->
+        <div class="flex-1 overflow-y-auto p-8 relative">
+            
+            <!-- Dashboard View -->
+            <div id="dashboard-view" class="view-section active space-y-6 max-w-[1200px] mx-auto">
+                
+                <!-- Welcome Card (Minimals style) -->
+                <div class="w-full bg-[#E1F3EA] rounded-2xl p-10 flex items-center justify-between overflow-hidden relative shadow-soft">
+                    <div class="relative z-10 max-w-md">
+                        <h2 class="text-2xl font-bold text-[#004B50] mb-4">Welcome back 👋<br/>Media Cap Admin</h2>
+                        <p class="text-sm text-[#004B50]/80 font-medium leading-relaxed mb-6">If you are going to configure the portal, make sure there isn't anything pending in the tasks.</p>
+                        <button class="bg-[#00A76F] hover:bg-[#007867] text-white px-5 py-2.5 rounded-lg font-bold text-sm smooth-hover shadow-soft">Go Now</button>
+                    </div>
+                    
+                    <!-- Abstract graphic right -->
+                    <div class="absolute right-0 top-0 bottom-0 w-1/3 opacity-20 pointer-events-none">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full text-[#00A76F]">
+                            <path fill="currentColor" d="M44.7,-76.4C58.3,-69.2,70,-56.5,78.2,-41.8C86.4,-27.1,91.1,-10.4,87.9,5C84.7,20.4,73.6,34.5,62.2,46.4C50.8,58.3,39,68.1,25.3,74.5C11.6,80.9,-4,83.9,-18.2,80C-32.4,76.1,-45.2,65.3,-56.2,52.8C-67.2,40.3,-76.4,26.1,-80.6,10.2C-84.8,-5.7,-84,-23.4,-75.4,-37.2C-66.8,-51,-50.3,-60.9,-35.1,-67.2C-19.9,-73.5,-6,-76.2,8.9,-81.8C23.8,-87.4,31.1,-83.6,44.7,-76.4Z" transform="translate(100 100)"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-soft">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-[#E1F3EA] text-primary flex items-center justify-center">
+                                <iconify-icon icon="mynaui:users" class="text-2xl"></iconify-icon>
+                            </div>
+                            <h3 class="font-bold text-dark text-sm">Total Students</h3>
+                        </div>
+                        <p class="text-3xl font-bold text-dark" id="stat-students">--</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-soft">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-[#FFF5CC] text-[#FFAB00] flex items-center justify-center">
+                                <iconify-icon icon="mynaui:layer" class="text-2xl"></iconify-icon>
+                            </div>
+                            <h3 class="font-bold text-dark text-sm">Total Groups</h3>
+                        </div>
+                        <p class="text-3xl font-bold text-dark" id="stat-groups">--</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-soft">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-[#FFE4DE] text-[#FF4842] flex items-center justify-center">
+                                <iconify-icon icon="mynaui:bell" class="text-2xl"></iconify-icon>
+                            </div>
+                            <h3 class="font-bold text-dark text-sm">Notifications</h3>
+                        </div>
+                        <p class="text-3xl font-bold text-dark" id="stat-notifs">--</p>
+                    </div>
+                </div>
+                
+            </div>
+
+            <!-- Group Manager View -->
+            <div id="group-view" class="view-section max-w-[1200px] mx-auto">
+                <div class="flex justify-between items-center mb-8">
+                    <div>
+                        <h2 class="text-2xl font-bold text-dark mb-2">Group Manager</h2>
+                        <p class="text-sm text-graytext">Create and manage student groups.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Create Group Form -->
+                    <div class="lg:col-span-1">
+                        <div class="bg-white p-6 rounded-2xl shadow-soft">
+                            <h3 class="font-bold text-dark mb-6">Create New Group</h3>
+                            <form id="add-group-form" class="space-y-4">
+                                <div class="space-y-1.5">
+                                    <label class="text-sm font-semibold text-dark">Group Name</label>
+                                    <input type="text" id="group-name" placeholder="e.g. Graphic Designers" class="w-full px-4 py-3 bg-white border border-bordercolor focus:border-dark rounded-lg text-sm transition-colors outline-none" required>
+                                </div>
+                                <div class="space-y-1.5">
+                                    <label class="text-sm font-semibold text-dark">Section / Cohort</label>
+                                    <input type="text" id="group-section" placeholder="e.g. Batch A" class="w-full px-4 py-3 bg-white border border-bordercolor focus:border-dark rounded-lg text-sm transition-colors outline-none" required>
+                                </div>
+                                <button type="submit" class="w-full bg-dark hover:bg-[#454F5B] text-white font-bold py-3 rounded-lg smooth-hover mt-4 text-sm">
+                                    Add Group
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Groups List -->
+                    <div class="lg:col-span-2">
+                        <!-- We use Grid for the new Group Cards style -->
+                        <div id="groups-table-body" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <p class="text-graytext text-sm col-span-2">Loading groups...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Student Adder View (Hidden by default, triggered by JS) -->
+            <div id="student-adder-view" class="view-section max-w-[1200px] mx-auto">
+                <div class="flex items-center gap-4 mb-8">
+                    <button id="btn-back-to-groups" class="w-10 h-10 rounded-xl bg-white border border-bordercolor flex items-center justify-center text-dark hover:bg-light smooth-hover">
+                        <iconify-icon icon="mynaui:arrow-left" class="text-xl"></iconify-icon>
+                    </button>
+                    <div>
+                        <h2 class="text-2xl font-bold text-dark mb-1" id="student-adder-title">Group: Name</h2>
+                        <p class="text-sm text-graytext">Add students to this group.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-1">
+                        <div class="bg-white p-6 rounded-2xl shadow-soft">
+                            <h3 class="font-bold text-dark mb-6">Add Student</h3>
+                            <form id="add-student-form" class="space-y-4">
+                                <div class="space-y-1.5">
+                                    <label class="text-sm font-semibold text-dark">Full Name</label>
+                                    <input type="text" id="student-name" placeholder="John Doe" class="w-full px-4 py-3 bg-white border border-bordercolor focus:border-dark rounded-lg text-sm transition-colors outline-none" required>
+                                </div>
+                                <div class="space-y-1.5">
+                                    <label class="text-sm font-semibold text-dark">Class / Section</label>
+                                    <input type="text" id="student-class" placeholder="e.g. 10th Grade" class="w-full px-4 py-3 bg-white border border-bordercolor focus:border-dark rounded-lg text-sm transition-colors outline-none">
+                                </div>
+                                <button type="submit" class="w-full bg-dark hover:bg-[#454F5B] text-white font-bold py-3 rounded-lg smooth-hover text-sm">
+                                    Add to Group
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2">
+                        <div class="bg-white rounded-2xl shadow-soft overflow-hidden border border-bordercolor border-dashed">
+                            <table class="w-full text-left text-sm text-dark">
+                                <thead class="bg-[#F4F6F8] text-graytext uppercase text-xs font-semibold">
+                                    <tr>
+                                        <th class="px-6 py-4">Student Name</th>
+                                        <th class="px-6 py-4">Class</th>
+                                        <th class="px-6 py-4">Added On</th>
+                                        <th class="px-6 py-4 text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="students-table-body" class="divide-y divide-bordercolor border-dashed">
+                                    <tr><td colspan="4" class="px-6 py-4 text-graytext text-center">Loading students...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Credentials View -->
+            <div id="credential-view" class="view-section max-w-[1200px] mx-auto">
+                <div class="flex justify-between items-center mb-8">
+                    <div>
+                        <h2 class="text-2xl font-bold text-dark mb-2">Smart Credentials</h2>
+                        <p class="text-sm text-graytext">Auto-generate and manage logins.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-soft mb-8 flex flex-col md:flex-row gap-4 items-center justify-between border border-bordercolor border-dashed">
+                    <div class="flex-1 w-full">
+                        <label class="text-sm font-semibold text-dark block mb-2">Select Target Group</label>
+                        <select id="cred-group-select" class="w-full md:max-w-xs px-4 py-3 bg-[#F4F6F8] border-none focus:ring-2 focus:ring-dark rounded-lg text-sm transition-colors outline-none font-medium text-dark">
+                            <option value="">Choose a group...</option>
+                        </select>
+                    </div>
+                    <button id="btn-save-credentials" class="w-full md:w-auto bg-primary hover:bg-primaryDark text-white px-6 py-3 rounded-lg font-bold smooth-hover shadow-soft text-sm flex items-center justify-center gap-2">
+                        <iconify-icon icon="mynaui:save"></iconify-icon> Save Changes
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-soft overflow-hidden">
+                    <table class="w-full text-left text-sm text-dark">
+                        <thead class="bg-[#F4F6F8] text-graytext uppercase text-xs font-semibold">
+                            <tr>
+                                <th class="px-6 py-4">Candidate Name</th>
+                                <th class="px-6 py-4">Class</th>
+                                <th class="px-6 py-4">Generated Username</th>
+                                <th class="px-6 py-4">Generated Passcode</th>
+                                <th class="px-6 py-4 text-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="credentials-table-body" class="divide-y divide-bordercolor border-dashed">
+                            <tr>
+                                <td colspan="5" class="px-6 py-8 text-center text-graytext">Select a group to load candidates.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Attendance View -->
+            <div id="attendance-view" class="view-section max-w-[1200px] mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-dark mb-2">Live Attendance</h2>
+                        <p class="text-sm text-graytext">Track and report student absences.</p>
+                    </div>
+                    
+                    <!-- Tabs -->
+                    <div class="flex bg-[#F4F6F8] p-1 rounded-xl">
+                        <button class="att-tab active px-4 py-2 text-sm font-bold rounded-lg transition-colors bg-white shadow-sm text-dark" data-target="att-mark">Mark Absence</button>
+                        <button class="att-tab px-4 py-2 text-sm font-bold rounded-lg transition-colors text-graytext hover:text-dark" data-target="att-report">Absent Report</button>
+                        <button class="att-tab px-4 py-2 text-sm font-bold rounded-lg transition-colors text-graytext hover:text-dark" data-target="att-calendar">Calendar View</button>
+                    </div>
+                </div>
+
+                <!-- Mark Absence Tab -->
+                <div id="att-mark" class="att-pane block">
+                    <div class="bg-white p-6 rounded-2xl shadow-soft mb-8 flex flex-col md:flex-row gap-4 items-center justify-between border border-bordercolor border-dashed">
+                        <div class="flex-1 w-full">
+                            <label class="text-sm font-semibold text-dark block mb-2">Select Target Group</label>
+                            <select id="att-group-select" class="w-full md:max-w-xs px-4 py-3 bg-[#F4F6F8] border-none focus:ring-2 focus:ring-dark rounded-lg text-sm transition-colors outline-none font-medium text-dark">
+                                <option value="">Choose a group...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-soft overflow-hidden">
+                        <table class="w-full text-left text-sm text-dark">
+                            <thead class="bg-[#F4F6F8] text-graytext uppercase text-xs font-semibold">
+                                <tr>
+                                    <th class="px-6 py-4">Student Name</th>
+                                    <th class="px-6 py-4">Class</th>
+                                    <th class="px-6 py-4 text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="att-mark-table-body" class="divide-y divide-bordercolor border-dashed">
+                                <tr>
+                                    <td colspan="3" class="px-6 py-8 text-center text-graytext">Select a group to load students.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Absent Report Tab -->
+                <div id="att-report" class="att-pane hidden space-y-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-dark text-lg">Absence Log</h3>
+                        <div class="flex gap-2">
+                            <input type="date" id="att-report-date" class="px-4 py-2 bg-white border border-bordercolor rounded-lg text-sm outline-none font-medium text-dark shadow-soft">
+                        </div>
+                    </div>
+                    
+                    <div id="att-report-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Cards will render here -->
+                        <div class="col-span-full py-12 text-center text-graytext">Loading report...</div>
+                    </div>
+                </div>
+
+                <!-- Calendar View Tab -->
+                <div id="att-calendar" class="att-pane hidden">
+                    <div class="bg-white p-6 rounded-2xl shadow-soft">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="font-bold text-dark text-lg" id="calendar-month-year">May 2026</h3>
+                            <div class="flex gap-2">
+                                <button id="cal-prev" class="w-10 h-10 rounded-lg bg-light text-dark hover:bg-[#E1F3EA] hover:text-primary smooth-hover flex items-center justify-center">
+                                    <iconify-icon icon="mynaui:chevron-left" class="text-xl"></iconify-icon>
+                                </button>
+                                <button id="cal-next" class="w-10 h-10 rounded-lg bg-light text-dark hover:bg-[#E1F3EA] hover:text-primary smooth-hover flex items-center justify-center">
+                                    <iconify-icon icon="mynaui:chevron-right" class="text-xl"></iconify-icon>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-7 gap-2 text-center mb-2">
+                            <div class="text-xs font-bold text-graytext uppercase py-2">Sun</div>
+                            <div class="text-xs font-bold text-graytext uppercase py-2">Mon</div>
+                            <div class="text-xs font-bold text-graytext uppercase py-2">Tue</div>
+                            <div class="text-xs font-bold text-graytext uppercase py-2">Wed</div>
+                            <div class="text-xs font-bold text-graytext uppercase py-2">Thu</div>
+                            <div class="text-xs font-bold text-graytext uppercase py-2">Fri</div>
+                            <div class="text-xs font-bold text-graytext uppercase py-2">Sat</div>
+                        </div>
+                        <div id="calendar-grid" class="grid grid-cols-7 gap-2">
+                            <!-- Calendar days render here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notification View -->
+            <div id="notification-view" class="view-section max-w-[1200px] mx-auto">
+                <div class="flex justify-between items-center mb-8">
+                    <div>
+                        <h2 class="text-2xl font-bold text-dark mb-2">Broadcast Alerts</h2>
+                        <p class="text-sm text-graytext">Send instant alerts to candidate portals.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-soft max-w-2xl">
+                    <form id="send-notification-form" class="space-y-5">
+                        <div class="space-y-1.5">
+                            <label class="text-sm font-semibold text-dark">Target Audience</label>
+                            <select id="notif-target" class="w-full px-4 py-3 bg-[#F4F6F8] border-none rounded-lg text-sm outline-none font-medium text-dark" required>
+                                <option value="public">All Groups (Public Broadcast)</option>
+                            </select>
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="text-sm font-semibold text-dark">Alert Title</label>
+                            <input type="text" id="notif-title" placeholder="e.g. Server Maintenance" class="w-full px-4 py-3 bg-white border border-bordercolor focus:border-dark rounded-lg text-sm transition-colors outline-none" required>
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="text-sm font-semibold text-dark">Message</label>
+                            <textarea id="notif-message" rows="3" placeholder="Type your alert message here..." class="w-full px-4 py-3 bg-white border border-bordercolor focus:border-dark rounded-lg text-sm transition-colors outline-none resize-none" required></textarea>
+                        </div>
+                        
+                        <div class="space-y-1.5 pt-2">
+                            <label class="text-sm font-semibold text-dark block">Alert Type</label>
+                            <div class="flex gap-4">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="radio" name="notif-type" value="info" checked class="text-primary focus:ring-primary h-4 w-4">
+                                    <span class="text-sm text-dark font-medium">Information</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="radio" name="notif-type" value="alert" class="text-primary focus:ring-primary h-4 w-4">
+                                    <span class="text-sm text-dark font-medium">Critical Alert</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full bg-dark hover:bg-[#454F5B] text-white font-bold py-3.5 rounded-lg smooth-hover text-sm mt-4 flex items-center justify-center gap-2">
+                            <iconify-icon icon="mynaui:send"></iconify-icon> Send Broadcast
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Task View -->
+            <div id="task-view" class="view-section max-w-[1200px] mx-auto">
+                <div class="flex justify-between items-center mb-8">
+                    <div>
+                        <h2 class="text-2xl font-bold text-dark mb-2">Task Manager</h2>
+                        <p class="text-sm text-graytext">Assign deliverables to groups.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-soft max-w-2xl">
+                    <form id="create-task-form" class="space-y-5">
+                        <div class="space-y-1.5">
+                            <label class="text-sm font-semibold text-dark">Assign To</label>
+                            <select id="task-target" class="w-full px-4 py-3 bg-[#F4F6F8] border-none rounded-lg text-sm outline-none font-medium text-dark" required>
+                                <option value="public">All Groups (Public)</option>
+                            </select>
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="text-sm font-semibold text-dark">Task Title</label>
+                            <input type="text" id="task-title" placeholder="e.g. Design Poster" class="w-full px-4 py-3 bg-white border border-bordercolor focus:border-dark rounded-lg text-sm transition-colors outline-none" required>
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="text-sm font-semibold text-dark">Description</label>
+                            <textarea id="task-description" rows="3" placeholder="Provide instructions..." class="w-full px-4 py-3 bg-white border border-bordercolor focus:border-dark rounded-lg text-sm transition-colors outline-none resize-none" required></textarea>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-1.5">
+                                <label class="text-sm font-semibold text-dark">Deadline</label>
+                                <input type="text" id="task-deadline" placeholder="e.g. Tomorrow 5PM" class="w-full px-4 py-3 bg-white border border-bordercolor focus:border-dark rounded-lg text-sm transition-colors outline-none" required>
+                            </div>
+                            <div class="space-y-1.5">
+                                <label class="text-sm font-semibold text-dark">Icon</label>
+                                <select id="task-icon" class="w-full px-4 py-3 bg-[#F4F6F8] border-none rounded-lg text-sm outline-none font-medium text-dark">
+                                    <option value="mynaui:code">Code</option>
+                                    <option value="mynaui:image">Design</option>
+                                    <option value="mynaui:video">Video</option>
+                                    <option value="mynaui:file">Document</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full bg-primary hover:bg-primaryDark text-white font-bold py-3.5 rounded-lg smooth-hover text-sm mt-4">
+                            Deploy Task
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script type="module" src="js/firebase-config.js"></script>
+    <script type="module" src="js/admin.js"></script>
+    <script>
+        // Tab switching logic
+        const navLinks = document.querySelectorAll('.nav-link');
+        const views = document.querySelectorAll('.view-section');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('data-target');
+                
+                // Update active link
+                navLinks.forEach(l => l.classList.remove('active', 'bg-[rgba(0,167,111,0.08)]', 'text-primary'));
+                navLinks.forEach(l => l.classList.add('text-graytext'));
+                
+                link.classList.remove('text-graytext');
+                link.classList.add('active');
+                
+                // Show view
+                views.forEach(view => {
+                    view.classList.remove('active');
+                });
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
