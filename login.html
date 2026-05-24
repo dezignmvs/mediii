@@ -162,6 +162,43 @@
         import { signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
         import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
+        // Toast Notification
+        window.showToast = function(message, type = 'success') {
+            const toastContainerId = 'toast-container';
+            let container = document.getElementById(toastContainerId);
+            if (!container) {
+                container = document.createElement('div');
+                container.id = toastContainerId;
+                container.className = 'fixed top-5 left-1/2 -translate-x-1/2 z-[9999] flex flex-col gap-2 pointer-events-none';
+                document.body.appendChild(container);
+            }
+            const toast = document.createElement('div');
+            const icon = type === 'success' ? 'mynaui:check-circle' : 'mynaui:x-circle';
+            const color = type === 'success' ? 'text-primary' : 'text-[#FF4842]';
+            const bgColor = type === 'success' ? 'bg-primary' : 'bg-[#FF4842]';
+            
+            toast.className = `bg-white rounded-xl shadow-soft flex flex-col overflow-hidden transition-all duration-300 transform -translate-y-4 opacity-0 border border-bordercolor pointer-events-auto min-w-[300px]`;
+            toast.innerHTML = `
+                <div class="px-4 py-3 flex items-center gap-3">
+                    <iconify-icon icon="${icon}" class="text-xl ${color}"></iconify-icon>
+                    <span class="text-sm font-bold text-dark">${message}</span>
+                </div>
+                <div class="h-1 w-full bg-light">
+                    <div class="h-full ${bgColor} transition-all ease-linear" style="width: 100%; transition-duration: 3000ms;"></div>
+                </div>
+            `;
+            container.appendChild(toast);
+            requestAnimationFrame(() => {
+                toast.classList.remove('-translate-y-4', 'opacity-0');
+                const progressBar = toast.querySelector('div > div.h-full');
+                requestAnimationFrame(() => progressBar.style.width = '0%');
+            });
+            setTimeout(() => {
+                toast.classList.add('-translate-y-4', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        };
+
         // Toggle UI Logic
         const btnToggleRole = document.getElementById('btn-toggle-role');
         const formCand = document.getElementById('form-candidate');
@@ -313,19 +350,19 @@
                 const snap = await getDocs(q);
                 
                 if (snap.empty) {
-                    alert("Invalid Candidate Credentials");
+                    showToast("Invalid Candidate Credentials", "error");
                     btn.innerHTML = ogText;
                     btn.disabled = false;
                     return;
                 }
                 
                 const data = snap.docs[0].data();
-                const sessionData = { id: snap.docs[0].id, name: data.name, group: data.group };
+                const sessionData = { id: snap.docs[0].id, name: data.name, group: data.group, username: data.username || user };
                 localStorage.setItem('candidateSession', JSON.stringify(sessionData));
                 window.location.href = 'candidate.html';
             } catch(err) {
                 console.error(err);
-                alert("Connection error");
+                showToast("Connection error", "error");
                 btn.innerHTML = ogText;
                 btn.disabled = false;
             }

@@ -60,9 +60,9 @@
                 <!-- Right Nav -->
                 <div class="flex items-center gap-4 relative">
                     <!-- Notifications -->
-                    <button class="relative w-10 h-10 rounded-full text-graytext hover:bg-light smooth-hover flex items-center justify-center">
+                    <button id="btn-bell" class="relative w-10 h-10 rounded-full text-graytext hover:bg-light smooth-hover flex items-center justify-center">
                         <iconify-icon icon="mynaui:bell" class="text-xl"></iconify-icon>
-                        <span id="bell-icon-count" class="absolute top-2 right-2 w-2 h-2 bg-[#FF4842] rounded-full hidden"></span>
+                        <span id="bell-icon-count" class="absolute top-1 right-1 w-4 h-4 bg-[#FF4842] rounded-full hidden text-[9px] text-white font-bold flex items-center justify-center border border-white"></span>
                     </button>
                     <!-- User Profile Dropdown Toggle -->
                     <div class="relative">
@@ -137,7 +137,7 @@
                         <span class="text-xs font-bold tracking-wider uppercase text-graytext">Score</span>
                         <iconify-icon icon="mynaui:star" class="text-2xl text-[#FFAB00]"></iconify-icon>
                     </div>
-                    <div class="text-3xl font-bold text-dark">A+</div>
+                    <div id="cand-score" class="text-3xl font-bold text-dark">--<span class="text-lg text-graytext font-medium">/10</span></div>
                 </div>
             </div>
 
@@ -151,11 +151,26 @@
                     <p class="text-graytext font-medium text-sm text-center py-8">Loading alerts...</p>
                 </div>
                 
-                <button class="w-full mt-6 py-2.5 text-dark font-bold text-sm rounded-lg hover:bg-light smooth-hover border border-bordercolor border-dashed">View All</button>
+                <button id="btn-view-all-notifs" class="w-full mt-6 py-2.5 text-dark font-bold text-sm rounded-lg hover:bg-light smooth-hover border border-bordercolor border-dashed">View All</button>
             </div>
             
         </div>
     </main>
+
+    <!-- All Notifications Modal -->
+    <div id="notifs-modal" class="fixed inset-0 bg-dark/50 z-50 hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-hover flex flex-col max-h-[90vh] transform scale-95 transition-transform duration-300" id="notifs-modal-content">
+            <div class="p-6 border-b border-bordercolor border-dashed flex justify-between items-center">
+                <h3 class="text-xl font-bold text-dark">All Alerts</h3>
+                <button id="btn-close-notifs-modal" class="w-8 h-8 rounded-full bg-light text-graytext hover:text-dark flex items-center justify-center smooth-hover">
+                    <iconify-icon icon="mynaui:x" class="text-xl"></iconify-icon>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto flex-1 space-y-4" id="all-notifs-modal-container">
+                <p class="text-graytext text-center font-medium">Loading alerts...</p>
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script type="module" src="js/firebase-config.js"></script>

@@ -71,8 +71,11 @@
 </head>
 <body class="text-dark font-sans flex h-screen overflow-hidden antialiased selection:bg-primary selection:text-white">
 
+    <!-- Sidebar Backdrop -->
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-dark/50 z-20 hidden transition-opacity duration-300 opacity-0 md:hidden"></div>
+
     <!-- Sidebar -->
-    <aside class="w-[280px] bg-white flex-col hidden md:flex z-20 border-r border-bordercolor border-dashed">
+    <aside id="sidebar" class="w-[280px] bg-white flex-col fixed md:relative inset-y-0 left-0 z-30 border-r border-bordercolor border-dashed transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out flex">
         <div class="h-20 flex items-center gap-3 px-6">
             <img src="logo.png" alt="Logo" class="w-8 h-8 object-contain">
             <h1 class="text-xl font-bold tracking-tight text-dark">Media Cap</h1>
@@ -113,10 +116,40 @@
                         <iconify-icon icon="mynaui:key" class="text-xl"></iconify-icon> Credentials
                     </a>
                 </li>
-                <li>
-                    <a href="#" data-target="attendance-view" class="nav-link flex items-center gap-4 px-4 py-3 rounded-lg text-graytext hover:bg-light font-medium smooth-hover text-sm">
-                        <iconify-icon icon="mynaui:check-circle" class="text-xl"></iconify-icon> Attendance
-                    </a>
+                <li class="relative">
+                    <button class="menu-collapse-btn w-full flex items-center justify-between px-4 py-3 rounded-lg text-graytext hover:bg-light font-medium smooth-hover text-sm">
+                        <div class="flex items-center gap-4">
+                            <iconify-icon icon="mynaui:check-circle" class="text-xl"></iconify-icon> Attendance
+                        </div>
+                        <iconify-icon icon="mynaui:chevron-down" class="text-lg transition-transform duration-200 chevron"></iconify-icon>
+                    </button>
+                    <!-- Submenu -->
+                    <ul class="submenu hidden mt-1 space-y-1 relative before:content-[''] before:absolute before:left-[27px] before:top-2 before:bottom-6 before:w-[2px] before:bg-gray-200">
+                        <li class="relative">
+                            <div class="absolute left-[27px] top-[19px] w-4 h-[2px] bg-gray-200"></div>
+                            <a href="#" data-target="attendance-view" data-tab="att-mark" class="nav-link flex items-center pl-11 pr-4 py-2.5 rounded-lg text-graytext hover:bg-light font-medium smooth-hover text-sm">
+                                Mark Attendance
+                            </a>
+                        </li>
+                        <li class="relative">
+                            <div class="absolute left-[27px] top-[19px] w-4 h-[2px] bg-gray-200"></div>
+                            <a href="#" data-target="attendance-view" data-tab="att-report" class="nav-link flex items-center pl-11 pr-4 py-2.5 rounded-lg text-graytext hover:bg-light font-medium smooth-hover text-sm">
+                                Absent Report
+                            </a>
+                        </li>
+                        <li class="relative">
+                            <div class="absolute left-[27px] top-[19px] w-4 h-[2px] bg-gray-200"></div>
+                            <a href="#" data-target="attendance-view" data-tab="att-summary" class="nav-link flex items-center pl-11 pr-4 py-2.5 rounded-lg text-graytext hover:bg-light font-medium smooth-hover text-sm">
+                                Report
+                            </a>
+                        </li>
+                        <li class="relative">
+                            <div class="absolute left-[27px] top-[19px] w-4 h-[2px] bg-gray-200"></div>
+                            <a href="#" data-target="attendance-view" data-tab="att-calendar" class="nav-link flex items-center pl-11 pr-4 py-2.5 rounded-lg text-graytext hover:bg-light font-medium smooth-hover text-sm">
+                                Calendar View
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="#" data-target="notification-view" class="nav-link flex items-center gap-4 px-4 py-3 rounded-lg text-graytext hover:bg-light font-medium smooth-hover text-sm">
@@ -144,7 +177,7 @@
         <!-- Header -->
         <header class="h-20 bg-white/80 backdrop-blur-[6px] flex items-center justify-between px-8 z-10">
             <div class="flex items-center gap-4">
-                <button class="md:hidden text-2xl text-dark">
+                <button id="mobile-menu-btn" class="md:hidden text-2xl text-dark">
                     <iconify-icon icon="mynaui:menu"></iconify-icon>
                 </button>
             </div>
@@ -195,7 +228,7 @@
                     <div class="bg-white p-6 rounded-2xl shadow-soft">
                         <div class="flex items-center gap-4 mb-4">
                             <div class="w-12 h-12 rounded-xl bg-[#FFF5CC] text-[#FFAB00] flex items-center justify-center">
-                                <iconify-icon icon="mynaui:layer" class="text-2xl"></iconify-icon>
+                                <iconify-icon icon="mynaui:folder" class="text-2xl"></iconify-icon>
                             </div>
                             <h3 class="font-bold text-dark text-sm">Total Groups</h3>
                         </div>
@@ -356,38 +389,53 @@
                     
                     <!-- Tabs -->
                     <div class="flex bg-[#F4F6F8] p-1 rounded-xl">
-                        <button class="att-tab active px-4 py-2 text-sm font-bold rounded-lg transition-colors bg-white shadow-sm text-dark" data-target="att-mark">Mark Absence</button>
+                        <button class="att-tab active px-4 py-2 text-sm font-bold rounded-lg transition-colors bg-white shadow-sm text-dark" data-target="att-mark">Mark Attendance</button>
                         <button class="att-tab px-4 py-2 text-sm font-bold rounded-lg transition-colors text-graytext hover:text-dark" data-target="att-report">Absent Report</button>
+                        <button class="att-tab px-4 py-2 text-sm font-bold rounded-lg transition-colors text-graytext hover:text-dark" data-target="att-summary">Report</button>
                         <button class="att-tab px-4 py-2 text-sm font-bold rounded-lg transition-colors text-graytext hover:text-dark" data-target="att-calendar">Calendar View</button>
                     </div>
                 </div>
 
-                <!-- Mark Absence Tab -->
+                <!-- Mark Attendance Tab -->
                 <div id="att-mark" class="att-pane block">
-                    <div class="bg-white p-6 rounded-2xl shadow-soft mb-8 flex flex-col md:flex-row gap-4 items-center justify-between border border-bordercolor border-dashed">
-                        <div class="flex-1 w-full">
+                    <div class="bg-white p-6 rounded-2xl shadow-soft mb-8 flex flex-col md:flex-row gap-4 items-end justify-between border border-bordercolor border-dashed">
+                        <div class="flex-1 w-full md:w-auto">
                             <label class="text-sm font-semibold text-dark block mb-2">Select Target Group</label>
-                            <select id="att-group-select" class="w-full md:max-w-xs px-4 py-3 bg-[#F4F6F8] border-none focus:ring-2 focus:ring-dark rounded-lg text-sm transition-colors outline-none font-medium text-dark">
+                            <select id="att-group-select" class="w-full px-4 py-3 bg-[#F4F6F8] border-none focus:ring-2 focus:ring-dark rounded-lg text-sm transition-colors outline-none font-medium text-dark">
                                 <option value="">Choose a group...</option>
                             </select>
                         </div>
+                        <div class="w-full md:w-auto">
+                            <label class="text-sm font-semibold text-dark block mb-2">Date</label>
+                            <input type="date" id="att-date-select" class="w-full px-4 py-3 bg-[#F4F6F8] border-none focus:ring-2 focus:ring-dark rounded-lg text-sm transition-colors outline-none font-medium text-dark">
+                        </div>
+                        <div class="w-full md:w-auto">
+                            <label class="text-sm font-semibold text-dark block mb-2">Time</label>
+                            <input type="time" id="att-time-select" class="w-full px-4 py-3 bg-[#F4F6F8] border-none focus:ring-2 focus:ring-dark rounded-lg text-sm transition-colors outline-none font-medium text-dark">
+                        </div>
                     </div>
 
-                    <div class="bg-white rounded-2xl shadow-soft overflow-hidden">
+                    <div class="bg-white rounded-2xl shadow-soft overflow-hidden mb-6">
                         <table class="w-full text-left text-sm text-dark">
                             <thead class="bg-[#F4F6F8] text-graytext uppercase text-xs font-semibold">
                                 <tr>
                                     <th class="px-6 py-4">Student Name</th>
                                     <th class="px-6 py-4">Class</th>
-                                    <th class="px-6 py-4 text-right">Action</th>
+                                    <th class="px-6 py-4 text-center">Present</th>
                                 </tr>
                             </thead>
                             <tbody id="att-mark-table-body" class="divide-y divide-bordercolor border-dashed">
                                 <tr>
-                                    <td colspan="3" class="px-6 py-8 text-center text-graytext">Select a group to load students.</td>
+                                    <td colspan="3" class="px-6 py-8 text-center text-graytext">Select a group and date to load students.</td>
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                    
+                    <div class="flex justify-end">
+                        <button id="btn-save-attendance" class="bg-primary hover:bg-primaryDark text-white px-6 py-3 rounded-lg font-bold smooth-hover shadow-soft text-sm flex items-center justify-center gap-2 hidden">
+                            <iconify-icon icon="mynaui:save"></iconify-icon> Save Attendance
+                        </button>
                     </div>
                 </div>
 
@@ -403,6 +451,38 @@
                     <div id="att-report-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         <!-- Cards will render here -->
                         <div class="col-span-full py-12 text-center text-graytext">Loading report...</div>
+                    </div>
+                </div>
+
+                <!-- Summary Report Tab -->
+                <div id="att-summary" class="att-pane hidden">
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <h3 class="font-bold text-dark text-lg">Attendance Collections</h3>
+                            <p class="text-sm text-graytext">Summary of all taken attendances</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <input type="month" id="att-summary-month" class="px-4 py-2 bg-white border border-bordercolor rounded-lg text-sm outline-none font-medium text-dark shadow-soft">
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl shadow-soft overflow-hidden">
+                        <table class="w-full text-left text-sm text-dark">
+                            <thead class="bg-[#F4F6F8] text-graytext uppercase text-xs font-semibold">
+                                <tr>
+                                    <th class="px-6 py-4">Day & Date</th>
+                                    <th class="px-6 py-4">Group</th>
+                                    <th class="px-6 py-4 text-center">Present</th>
+                                    <th class="px-6 py-4 text-center">Absent</th>
+                                    <th class="px-6 py-4 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="att-summary-table-body" class="divide-y divide-bordercolor border-dashed">
+                                <tr>
+                                    <td colspan="5" class="px-6 py-8 text-center text-graytext">Loading attendance summary...</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
@@ -452,7 +532,20 @@
                             <label class="text-sm font-semibold text-dark">Target Audience</label>
                             <select id="notif-target" class="w-full px-4 py-3 bg-[#F4F6F8] border-none rounded-lg text-sm outline-none font-medium text-dark" required>
                                 <option value="public">All Groups (Public Broadcast)</option>
+                                <option value="group">Specific Groups (Multiple)</option>
+                                <option value="individual">Individual (By Username)</option>
                             </select>
+                        </div>
+                        <div id="notif-group-container" class="space-y-1.5 hidden">
+                            <label class="text-sm font-semibold text-dark">Select Groups</label>
+                            <div id="notif-groups-checkboxes" class="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-white p-3 rounded-lg border border-bordercolor max-h-40 overflow-y-auto">
+                                <!-- Checkboxes populated dynamically -->
+                            </div>
+                        </div>
+                        <div id="notif-individual-container" class="space-y-1.5 hidden">
+                            <label class="text-sm font-semibold text-dark">Usernames (Comma-separated)</label>
+                            <input type="text" id="notif-usernames" placeholder="e.g. john123, doe456" class="w-full px-4 py-3 bg-white border border-bordercolor focus:border-dark rounded-lg text-sm transition-colors outline-none">
+                            <p id="notif-usernames-validation" class="text-xs font-semibold mt-1 hidden"></p>
                         </div>
                         <div class="space-y-1.5">
                             <label class="text-sm font-semibold text-dark">Alert Title</label>
@@ -477,10 +570,39 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="w-full bg-dark hover:bg-[#454F5B] text-white font-bold py-3.5 rounded-lg smooth-hover text-sm mt-4 flex items-center justify-center gap-2">
+                        <div class="space-y-1.5 pt-2">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" id="notif-active" checked class="text-primary focus:ring-primary rounded h-4 w-4 border-bordercolor">
+                                <span class="text-sm text-dark font-semibold">Active Status (Visible to candidates)</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" id="btn-send-notif" class="w-full bg-dark hover:bg-[#454F5B] text-white font-bold py-3.5 rounded-lg smooth-hover text-sm mt-4 flex items-center justify-center gap-2">
                             <iconify-icon icon="mynaui:send"></iconify-icon> Send Broadcast
                         </button>
+                        <button type="button" id="btn-cancel-edit-notif" class="w-full bg-light hover:bg-[#F4F6F8] text-dark font-bold py-3.5 rounded-lg smooth-hover text-sm mt-2 hidden flex-center justify-center gap-2 border border-bordercolor border-dashed">
+                            Cancel Edit
+                        </button>
                     </form>
+                </div>
+
+                <div class="mt-8 bg-white rounded-2xl shadow-soft overflow-hidden">
+                    <table class="w-full text-left text-sm text-dark">
+                        <thead class="bg-[#F4F6F8] text-graytext uppercase text-xs font-semibold">
+                            <tr>
+                                <th class="px-6 py-4">Title</th>
+                                <th class="px-6 py-4">Message</th>
+                                <th class="px-6 py-4">Target</th>
+                                <th class="px-6 py-4 text-center">Status</th>
+                                <th class="px-6 py-4 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-notifs-table-body" class="divide-y divide-bordercolor border-dashed">
+                            <tr>
+                                <td colspan="5" class="px-6 py-8 text-center text-graytext">Loading notifications...</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -499,7 +621,20 @@
                             <label class="text-sm font-semibold text-dark">Assign To</label>
                             <select id="task-target" class="w-full px-4 py-3 bg-[#F4F6F8] border-none rounded-lg text-sm outline-none font-medium text-dark" required>
                                 <option value="public">All Groups (Public)</option>
+                                <option value="group">Specific Groups (Multiple)</option>
+                                <option value="individual">Individual (By Username)</option>
                             </select>
+                        </div>
+                        <div id="task-group-container" class="space-y-1.5 hidden">
+                            <label class="text-sm font-semibold text-dark">Select Groups</label>
+                            <div id="task-groups-checkboxes" class="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-white p-3 rounded-lg border border-bordercolor max-h-40 overflow-y-auto">
+                                <!-- Checkboxes populated dynamically -->
+                            </div>
+                        </div>
+                        <div id="task-individual-container" class="space-y-1.5 hidden">
+                            <label class="text-sm font-semibold text-dark">Usernames (Comma-separated)</label>
+                            <input type="text" id="task-usernames" placeholder="e.g. john123, doe456" class="w-full px-4 py-3 bg-white border border-bordercolor focus:border-dark rounded-lg text-sm transition-colors outline-none">
+                            <p id="task-usernames-validation" class="text-xs font-semibold mt-1 hidden"></p>
                         </div>
                         <div class="space-y-1.5">
                             <label class="text-sm font-semibold text-dark">Task Title</label>
@@ -513,7 +648,7 @@
                         <div class="grid grid-cols-2 gap-4">
                             <div class="space-y-1.5">
                                 <label class="text-sm font-semibold text-dark">Deadline</label>
-                                <input type="text" id="task-deadline" placeholder="e.g. Tomorrow 5PM" class="w-full px-4 py-3 bg-white border border-bordercolor focus:border-dark rounded-lg text-sm transition-colors outline-none" required>
+                                <input type="datetime-local" id="task-deadline" class="w-full px-4 py-3 bg-white border border-bordercolor focus:border-dark rounded-lg text-sm transition-colors outline-none" required>
                             </div>
                             <div class="space-y-1.5">
                                 <label class="text-sm font-semibold text-dark">Icon</label>
@@ -526,10 +661,31 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="w-full bg-primary hover:bg-primaryDark text-white font-bold py-3.5 rounded-lg smooth-hover text-sm mt-4">
-                            Deploy Task
+                        <button type="submit" id="btn-create-task" class="w-full bg-primary hover:bg-primaryDark text-white font-bold py-3.5 rounded-lg smooth-hover text-sm mt-4 flex items-center justify-center gap-2">
+                            <iconify-icon icon="mynaui:plus-square"></iconify-icon> Deploy Task
+                        </button>
+                        <button type="button" id="btn-cancel-edit-task" class="w-full bg-light hover:bg-[#F4F6F8] text-dark font-bold py-3.5 rounded-lg smooth-hover text-sm mt-2 hidden flex-center justify-center gap-2 border border-bordercolor border-dashed">
+                            Cancel Edit
                         </button>
                     </form>
+                </div>
+
+                <div class="mt-8 bg-white rounded-2xl shadow-soft overflow-hidden max-w-4xl">
+                    <table class="w-full text-left text-sm text-dark">
+                        <thead class="bg-[#F4F6F8] text-graytext uppercase text-xs font-semibold">
+                            <tr>
+                                <th class="px-6 py-4">Title</th>
+                                <th class="px-6 py-4">Deadline</th>
+                                <th class="px-6 py-4">Target</th>
+                                <th class="px-6 py-4 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-tasks-table-body" class="divide-y divide-bordercolor border-dashed">
+                            <tr>
+                                <td colspan="4" class="px-6 py-8 text-center text-graytext">Loading tasks...</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -560,7 +716,73 @@
                 views.forEach(view => {
                     view.classList.remove('active');
                 });
-                document.getElementById(targetId).classList.add('active');
+                const targetView = document.getElementById(targetId);
+                if (targetView) targetView.classList.add('active');
+
+                // If sub-tab specified
+                const tabId = link.getAttribute('data-tab');
+                if (tabId) {
+                    const tabBtn = document.querySelector(`.att-tab[data-target="${tabId}"]`);
+                    if (tabBtn) tabBtn.click();
+                }
+            });
+        });
+
+        // Submenu logic
+        document.querySelectorAll('.menu-collapse-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const submenu = btn.nextElementSibling;
+                const chevron = btn.querySelector('.chevron');
+                submenu.classList.toggle('hidden');
+                if (submenu.classList.contains('hidden')) {
+                    chevron.style.transform = 'rotate(0deg)';
+                    btn.classList.remove('bg-[rgba(0,167,111,0.08)]', 'text-primary', 'font-bold');
+                    btn.classList.add('text-graytext');
+                } else {
+                    chevron.style.transform = 'rotate(180deg)';
+                    btn.classList.add('bg-[rgba(0,167,111,0.08)]', 'text-primary', 'font-bold');
+                    btn.classList.remove('text-graytext');
+                }
+            });
+        });
+
+        // Mobile Sidebar logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+
+        function toggleSidebar() {
+            if (!sidebar) return;
+            const isClosed = sidebar.classList.contains('-translate-x-full');
+            if (isClosed) {
+                sidebar.classList.remove('-translate-x-full');
+                if (sidebarBackdrop) {
+                    sidebarBackdrop.classList.remove('hidden');
+                    setTimeout(() => sidebarBackdrop.classList.remove('opacity-0'), 10);
+                }
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                if (sidebarBackdrop) {
+                    sidebarBackdrop.classList.add('opacity-0');
+                    setTimeout(() => sidebarBackdrop.classList.add('hidden'), 300);
+                }
+            }
+        }
+
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', toggleSidebar);
+        }
+        if (sidebarBackdrop) {
+            sidebarBackdrop.addEventListener('click', toggleSidebar);
+        }
+        
+        // Also close sidebar on mobile when a standard link is clicked
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if(window.innerWidth < 768 && sidebar && !sidebar.classList.contains('-translate-x-full')) {
+                    toggleSidebar();
+                }
             });
         });
     </script>

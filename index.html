@@ -196,6 +196,7 @@
                 let html = '';
                 snap.forEach(doc => {
                     const data = doc.data();
+                    if (data.isActive === false) return; // Skip inactive alerts
                     const date = data.createdAt ? new Date(data.createdAt.toDate()).toLocaleString() : '';
                     const isCrit = data.type === 'alert';
                     const bgClass = isCrit ? 'bg-[#FFE4DE] text-[#FF4842] border-[#FF4842]/30' : 'bg-[#E1F3EA] text-primary border-primary/30';
